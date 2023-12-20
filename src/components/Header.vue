@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { computed, ref } from 'vue';
-import Filtros from './Filtros.vue';
+import Filtro from './Filtro.vue';
 const isNavbarHidden = ref(true);
 const buttonIdioma = ref(false)
 
@@ -75,7 +75,7 @@ const reactiveFavBotton = computed(() => {
                 </div>
             </div>
         </nav>
-    <Filtros/>
+    <Filtro/>
     </header>
 
 
