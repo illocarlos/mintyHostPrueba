@@ -40,7 +40,9 @@ const reactiveFavBotton = computed(() => {
                         </svg>
                     </button>
                 </div>
-                <div class="absolute right-0 top-7 ">
+                <div
+                 v-if="!isNavbarHidden" 
+                class="absolute right-0 top-5 ">
                 <RouterLink 
                 :to="{ name: 'contact' }"
              class=" w-40 flex flex-row justify-center  mx-5  p-1 ">
@@ -48,7 +50,9 @@ const reactiveFavBotton = computed(() => {
                                                 </RouterLink>
             </div>
         </div>
-           <div class="absolute right-0 top-7 ">
+           <div
+            v-if="isNavbarHidden" 
+           class="absolute right-0 top-5 ">
                     <RouterLink 
                     :to="{ name: 'contact' }"
                  class=" w-40 flex flex-row justify-center  mx-5  p-1 ">

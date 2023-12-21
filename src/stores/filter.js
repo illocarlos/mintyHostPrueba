@@ -1,19 +1,23 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, onMounted } from 'vue'
 import ApiService from '@/service/ApiService.js'
-
+import { useStoreModal } from './modal.js'
 export const useStoreFilter = defineStore('filter', () => {
-
-
-
+    const modal = useStoreModal()
+    const neighborhoods = ref([])
 
     const neighborhood = reactive({
         id: '',
         name: '',
 
     })
-    const neighborhoods = ref([])
 
+
+
+
+    function showModal(params) {
+        modal.clickShowModal()
+    }
 
     onMounted(async function () {
 
@@ -21,6 +25,8 @@ export const useStoreFilter = defineStore('filter', () => {
         neighborhood.value = data
         neighborhoods.value = data
     })
+
+
 
 
     return {

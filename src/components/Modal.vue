@@ -1,21 +1,15 @@
 <script setup>
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { useStoreModal } from '@/stores/modal'
-import { useDrinkStore } from '@/stores/drink'
-import { useStoreFavorite } from '@/stores/favorite'
+import { useStoreNeighborhood } from '../stores/neighborhood.js'
 
+const storeNeighborhood = useStoreNeighborhood();
 const modal = useStoreModal()
-const store = useDrinkStore()
-const favorite = useStoreFavorite()
 
-const formData = {
-    name: '',
-    email: ''
-};
+
 
 const handleSubmit = () => {
-    // Lógica para enviar el formulario
-    console.log('Datos del formulario:', formData);
+   storeNeighborhood.handleSubmit(storeNeighborhood.modalFilter)
 };
 </script>
 
@@ -34,37 +28,64 @@ const handleSubmit = () => {
                         leave-from="opacity-100 translate-y-0 sm:scale-100"
                         leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                         <DialogPanel
-                            class="relative transform overflow-hidden rounded-lg bg-slate-800  px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6">
+                            class="relative transform overflow-hidden rounded-lg  bg-emerald-500  px-30 pt-5 pb-4 text-left shadow-xl  px-8 mb-20 
+                            transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6">
                             <div>
                                 <div class="mt-3">
-                                    <DialogTitle as="h2" class="text-center font-extrabold text-4xl text-purple-400">
-                                        {{ store.drinkId.strDrink }}
+                                    <DialogTitle as="h2" class="uppercase text-center font-extrabold text-4xl text-black">
+                                   buscador
                                     </DialogTitle>
-                                    <!-- Contenido del modal -->
-                                    <!-- ... -->
+                                    <form
+                                    @submit.prevent="handleSubmit"
+                                    >
 
-                                    <!-- Formulario -->
-                                    <form @submit.prevent="handleSubmit">
-                                        <div class="mt-5">
-                                            <label for="name" class="block text-white">Nombre:</label>
-                                            <input type="text" id="name" v-model="formData.name"
-                                                class="w-full p-2 mt-1 rounded-lg" />
+
+
+
+                                        <div class="mt-3 flex flex-col justify-center items-center">
+                                            <label for="bedrooms" class="block text-center text-white">Habitaciones</label>
+                                            <input type="number" id="bedrooms" v-model="storeNeighborhood.modalFilter.bedrooms "
+                                                pattern="[0-9]*"  class="w-1/2 text-center p-2 mt-1 rounded-lg" />
                                         </div>
-                                        <div class="mt-3">
-                                            <label for="email" class="block text-white">Email:</label>
-                                            <input type="email" id="email" v-model="formData.email"
-                                                class="w-full p-2 mt-1 rounded-lg" />
-                                        </div>
+                                      <div class="mt-3 flex flex-col justify-center items-center">
+        <label for="guests" class="block text-center text-white">Numero ocupante</label>
+        <input pattern="[0-9]*" type="number" id="guests" v-model="storeNeighborhood.modalFilter.guests"
+            class="w-1/2 text-center p-2 mt-1 rounded-lg" />
+
+    </div>
+                                         <div class="mt-3 flex flex-col justify-center items-center">
+                                                <label for="min_price" class="block text-center text-white">Precio minimo</label>
+                                                <input pattern="[0-9]*" type="number" id="min_price" v-model="storeNeighborhood.modalFilter.min_price"
+                                                    class="w-1/2 p-2 text-center mt-1 rounded-lg" />
+                                            </div>
+                                             <div class="mt-3 flex flex-col justify-center items-center">
+                                                <label for="max_price" class="block text-center text-white">Precio maximo</label>
+                                                <input  pattern="[0-9]*" type="number" id="max_price" v-model="storeNeighborhood.modalFilter.max_price"
+                                                    class="w-1/2 p-2 mt-1 text-center rounded-lg" />
+                                            </div>
+
+
+
                                         <div class="mt-5 flex justify-center gap-4">
-                                            <button type="submit"
-                                                class="bg-orange-300 text-purple-700 px-6 py-2 font-extrabold uppercase rounded-lg hover:bg-purple-700 hover:text-orange-500 ease-linear active:animate-ping focus:outline-none">
-                                                Enviar
-                                            </button>
-                                            <button @click="modal.clickShowModal()"
-                                                class="bg-gray-400 text-black px-6 py-2 font-extrabold uppercase rounded-lg hover:bg-black hover:text-white ease-linear active:animate-ping focus:outline-none">
+                                             <button @click="modal.clickShowModal()"
+                                                class="bg-red-700 text-white px-6 py-2 font-extrabold uppercase rounded-lg
+                                                 hover:bg-red-400 hover:text-black hover:px-8 
+                                                 transition-all ease-linear active:animate-ping focus:outline-none">
                                                 Cerrar
                                             </button>
+                                            <button 
+                                             @click="modal.clickShowModal()"
+                                            type="submit"
+                                                class="  bg-white text-black px-6 py-2 font-extrabold uppercase rounded-lg
+                                                 hover:bg-emerald-600 hover:text-white hover:px-8  
+                                                  transition-all ease-linear active:animate-ping focus:outline-none">
+                                                Enviar
+                                            </button>
+                                           
                                         </div>
+
+
+
                                     </form>
                                 </div>
                         </div>
