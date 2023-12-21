@@ -1,12 +1,12 @@
 import api from "@/lib/axios"
 
-const getBarrios = () => api.get('/barrios')
+const getneighborhoods = () => api.get('/barrios')
 
-const postAllPisos = () => api.post('/search')
+const postAllFloor = () => api.post('/search')
 
 
 export default {
-    getBarrios,
-    postAllPisos
+    getneighborhoods,
+    postAllFloor
 
 }

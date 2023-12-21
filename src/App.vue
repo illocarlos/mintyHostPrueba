@@ -1,10 +1,10 @@
 <script setup>
 import { RouterView } from 'vue-router';
 import NavBar from "./components/NavBar.vue";
-import Filtro from './components/Filtro.vue';
-import ApartamentList from './components/ApartamentList.vue';
-import { useStoreBarrios } from './stores/barrios';
-const storeBarrio = useStoreBarrios()
+import Filter from './components/Filter.vue';
+import FloorList from './components/FloorList.vue';
+import { useStoreNeighborhood } from './stores/neighborhood';
+const storeNeighborhood = useStoreNeighborhood()
 
 
 </script>
@@ -13,13 +13,13 @@ const storeBarrio = useStoreBarrios()
 <main class="main">
       <NavBar />
 
-      <Filtro/>
+      <Filter/>
 </main>
 
-<ApartamentList
-       v-for="vivienda in storeBarrio.barrios"
-        :key="vivienda.id"
-        :vivienda="vivienda"
+<FloorList
+       v-for="floor in storeNeighborhood.neighborhoods"
+        :key="floor.id"
+        :floor="floor"
        />
 
 
@@ -37,6 +37,7 @@ const storeBarrio = useStoreBarrios()
       background-image: url('./assets/GV.jpg');
       background-size: cover;
       background-position: center;
+      z-index: -20;
 
       }
 
