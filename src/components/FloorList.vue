@@ -17,6 +17,10 @@ defineProps({
                 <p class="text-center">Ciudad:{{ floor.town }}</p>
                 <p class=" font-extrabold  text-center"> {{ floor.monthly_price}}€/M</p>
                 <p class="text-center"> {{ floor.accommodates_max}} personas</p>
+                <p class="text-center">{{ floor.bedrooms }} habitaciones </p>
+             <span class="text-center">
+
+             </span>
          
             </div>
         </div>

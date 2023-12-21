@@ -9,7 +9,7 @@ const modal = useStoreModal()
 
 
 const handleSubmit = () => {
-   storeNeighborhood.handleSubmit(storeNeighborhood.modalFilter)
+   storeNeighborhood.fetchPisos(storeNeighborhood.modalFilter)
 };
 </script>
 
@@ -63,8 +63,20 @@ const handleSubmit = () => {
                                                 <input  pattern="[0-9]*" type="number" id="max_price" v-model="storeNeighborhood.modalFilter.max_price"
                                                     class="w-1/2 p-2 mt-1 text-center rounded-lg" />
                                             </div>
-
-
+<!-- <div class=" flex flex-row justify-between lg:justify-center ">
+      <div class="mt-3  flex flex-col justify-center items-center">
+                <label for="heating" class="block text-center text-white">Wifi</label>
+                <input type="checkbox" id="heating" v-model="storeNeighborhood.modalFilter.heating" class="customCheck" />
+            </div>
+            <div class="mt-3 ml-5 flex flex-col justify-center items-center">
+                    <label for="wifi" class="block text-center text-white">Comedor</label>
+                    <input type="checkbox" id="wifi" v-model="storeNeighborhood.modalFilter.wifi" class="customCheck" />
+                </div>
+                <div class="mt-3 ml-5   flex flex-col justify-center items-center">
+                    <label for="AC" class=" block text-center text-white">Aseo</label>
+                    <input type="checkbox" id="AC" v-model="storeNeighborhood.modalFilter.AC" class="customCheck" />
+                </div>
+                </div> -->
 
                                         <div class="mt-5 flex justify-center gap-4">
                                              <button @click="modal.clickShowModal()"
@@ -94,4 +106,12 @@ const handleSubmit = () => {
             </div>
         </div>
     </Dialog>
-</TransitionRoot></template>
+</TransitionRoot>
+</template>
+<style scoped>
+.customCheck{
+    margin-top:0.25rem;
+    width:2rem ;
+    height:1.5rem ;
+}
+</style>

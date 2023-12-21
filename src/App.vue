@@ -25,9 +25,6 @@ const storeNeighborhood = useStoreNeighborhood()
 
 </template>
 
-
-
-
 <style scoped>
 
       .main{

@@ -14,15 +14,9 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
 
     })
 
-
-
-
-
-    const fetchPisos = async () => {
-
-
+    const fetchPisos = async (params) => {
         try {
-            const { data } = await ApiService.postAllFloor();
+            const { data } = await ApiService.postAllFloor(params);
 
             neighborhoods.value = data;
             allNeighborhoods.value = data;
@@ -44,30 +38,6 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
     }
 
 
-
-
-
-
-
-
-
-
-
-    function handleSubmit(filter) {
-
-        const filteredNeighborhoodsModal = filterneighborhoods.value.filter
-            (elm => elm.bathrooms >= filter.bedrooms && elm.accommodates_max >= filter.guests && elm.monthly_price >= filter.max_price);
-
-
-
-
-        neighborhoods.value = filteredNeighborhoodsModal;
-        console.log('------->', neighborhoods.value)
-
-    }
-
-
-
     onMounted(async () => {
         await fetchPisos();
     });
@@ -78,6 +48,5 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
         fetchPisos,
         filterNeighborhoodFloor,
         spinnerShow,
-        handleSubmit
     }
 })
