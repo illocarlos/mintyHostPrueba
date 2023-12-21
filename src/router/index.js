@@ -1,15 +1,8 @@
-import MainPage from '../views/MainPageView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'MainPage',
-      component: MainPage,
-      props: { title: 'Main' },
-    },
     {
       path: '/vivienda',
       name: 'vivienda',
