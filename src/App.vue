@@ -28,7 +28,7 @@ const storeNeighborhood = useStoreNeighborhood()
      :'No housing available please use the neighborhood filter or the filter button'}}</p>
 
         <div v-else class="gap-10 mt-3 ">
-       <FloorList class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4  "/>
+       <FloorList class=" grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4  "/>
         </div>
       
       <RouterView/>

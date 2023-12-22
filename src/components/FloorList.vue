@@ -1,24 +1,26 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useStoreNeighborhood } from '@/stores/neighborhood';
-
+import { formateEuro } from '../helpers/index'
 const storeNeighborhood = useStoreNeighborhood();
 const currentIndexes = ref([]);
 
 const startInterval = () => {
     storeNeighborhood.neighborhoods.forEach((floor, index) => {
-        currentIndexes.value[index] = 0; // Inicializamos cada currentIndex a 0 para cada piso
+        currentIndexes.value[index] = 0; 
         setInterval(() => {
             if (Array.isArray(floor.pic) && floor.pic.length > 0) {
                 currentIndexes.value[index] = (currentIndexes.value[index] + 1) % floor.pic.length;
             }
-        }, 3000);
+        }, 2000);
     });
 };
 
 const stopInterval = () => {
-    // Detener los intervalos (si es necesario)
-    // clearInterval...
+  currentIndexes.value.forEach((_, index) => {
+        clearInterval(currentIndexes.value[index]);
+  });
+    storeNeighborhood.neighborhoods
 };
 
 onMounted(() => {
@@ -32,26 +34,27 @@ onUnmounted(() => {
 
 <template>
     <div >
-        <div class="p-5 relative border shadow-lg " v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
+       
+        <div class=" relative border hover:scale-105 transition-transform  shadow-xl md:mx-5 md:mt-3 md:rounded-t-xl" v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
             <!-- Carrusel de imágenes -->
-            <div class="carousel relative w-full">
+            <div class="carousel relative w-full md:rounded-lg">
                 <div v-for="(image, imgIndex) in floor.pic" :key="imgIndex" :class="{
                     'block': imgIndex === currentIndexes[index],
                     'hidden': imgIndex !== currentIndexes[index],
                     'opacity-0': imgIndex !== currentIndexes[index],
                     'opacity-100': imgIndex === currentIndexes[index],
-                    'z-10': imgIndex === currentIndexes[index],
+                    '-z-10': imgIndex === currentIndexes[index],
                     'z-0': imgIndex !== currentIndexes[index],
                 }" class="w-full absolute top-0 left-0 transition-opacity duration-500">
                     <img :src="image" :alt="'Floor Image ' + imgIndex" class="w-full" />
                 </div>
             </div>
-            <!-- Detalles del piso -->
-            <div class="p-5">
+      <!-- detalles piso -->
+            <div class="px-7 py-8">
                 <p class="text-green-600 font-extrabold text-center">{{ floor.address }}</p>
-                <article class="truncate font-extrabold text-center">{{ floor.apartment_title }}</article>
-                <p class="text-center">Ciudad: {{ floor.town }}</p>
-                <p class="font-extrabold text-center">{{ floor.monthly_price }}€/M</p>
+                <article class=" truncate font-extrabold text-center">{{ floor.apartment_title }}</article>
+                <p class="text-center uppercasen text-green-600 "> {{ floor.town }}</p>
+                <p class="font-extrabold text-center">{{ formateEuro( floor.monthly_price) }}</p>
                 <p class="text-center">{{ floor.accommodates_max }} personas</p>
                 <p class="text-center">{{ floor.bedrooms }} habitaciones</p>
             </div>
@@ -61,14 +64,14 @@ onUnmounted(() => {
 
 <style>
 .carousel {
-    height: 300px;
+    height: 18rem;
     overflow: hidden;
 }
 
 .carousel img {
     transition: opacity 0.5s ease-in-out;
     position: absolute;
-    top: 0;
+    top:0;
     left: 0;
     width: 100%;
 }

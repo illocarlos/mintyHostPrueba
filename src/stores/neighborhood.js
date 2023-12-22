@@ -1,8 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, onMounted } from 'vue'
 import ApiService from '@/service/ApiService.js'
+import { useStoreModal } from '@/stores/modal'
+
 export const useStoreNeighborhood = defineStore('neighborhood', () => {
+    const modal = useStoreModal()
     const spinnerShow = ref(false)
+    const spinnerShowModal = ref(false)
     const neighborhoods = ref([]);
     const filterneighborhoods = ref([])
     const allNeighborhoods = ref([]);
@@ -23,16 +27,20 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
 
 
     async function fetchPisos(params) {
+
         try {
+
             const { data } = await ApiService.postAllFloor(params);
 
+
+            spinnerShowModal.value = false
             neighborhoods.value = data;
             allNeighborhoods.value = data;
-            filterneighborhoods.value = data;
+            console.log(allNeighborhoods.value)
             $reset()
-        } catch (error) {
         }
-
+        catch (error) {
+        }
     };
 
     function filterNeighborhoodFloor(floorFilter) {
@@ -54,6 +62,7 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
         fetchPisos,
         filterNeighborhoodFloor,
         spinnerShow,
+        spinnerShowModal
 
 
     }

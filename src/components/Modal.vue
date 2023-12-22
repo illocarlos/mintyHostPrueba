@@ -3,19 +3,19 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 import { useStoreModal } from '@/stores/modal'
 import { useStoreNeighborhood } from '../stores/neighborhood.js'
 import { useStoreButtom } from '@/stores/traduction.js'
-
+import Spinner from './Spinner.vue';
 
 const storeButtom = useStoreButtom()
 const storeNeighborhood = useStoreNeighborhood();
 const modal = useStoreModal()
 
-
-
 const handleSubmit = () => {
-    
-    storeNeighborhood.fetchPisos(storeNeighborhood.modalFilter)
- 
-  
+    storeNeighborhood.spinnerShowModal = true; 
+    setTimeout(async () => {
+        await storeNeighborhood.fetchPisos(storeNeighborhood.modalFilter);
+        storeNeighborhood.spinnerShowModal = false; 
+        modal.clickShowModal(); 
+    }, 3000);
 };
 </script>
 
@@ -53,11 +53,7 @@ const handleSubmit = () => {
             <input type="range" id="bedrooms"
                 v-model="storeNeighborhood.modalFilter.bedrooms" min="0" max="10" step="1" 
                 class="w-2/2 p-2 text-center mt-1 rounded-lg md:w-1/2 " />
-                   </div>
-                                 
-                   
-                   
-                   
+                   </div>  
                    <div class="mt-3 flex flex-col justify-center items-center">
                                    <label for="guests" class="block text-center text-white">
                                     {{ storeButtom.buttonLeng ? ' Numero huespedes' : 'Number of guests' }}</label>
@@ -66,10 +62,6 @@ const handleSubmit = () => {
                           <input min="0" max="30" step="1"  type="range" id="guests" v-model="storeNeighborhood.modalFilter.guests"
                                        class="w-2/2 text-center p-2 mt-1 rounded-lg md:w-1/2 " />
                                        </div>
-
-
-
-
                                          <div class="mt-3 flex flex-col justify-center items-center">
 
                                                 <label for="min_price" class="block text-center text-white">  
@@ -89,8 +81,6 @@ const handleSubmit = () => {
                                                 v-model="storeNeighborhood.modalFilter.max_price"
                                                     class="w-2/2 p-2 mt-1 text-center rounded-lg md:w-1/2 " />
                                             </div>
-
-
                                         <div class="mt-5 flex justify-center gap-4">
                                              <button @click="modal.clickShowModal()"
                                                 class="bg-red-700 text-white px-3 py-2 font-extrabold uppercase rounded-lg 
@@ -100,7 +90,6 @@ const handleSubmit = () => {
                                              {{ storeButtom.buttonLeng ? 'Cerrar' : 'Close' }}
                                             </button>
                                             <button 
-                                             @click="modal.clickShowModal()"
                                             type="submit"
                                                 class="  bg-white text-black px-3 py-2 font-extrabold uppercase rounded-lg
                                                   sm:px-8 lg:px-8 hover:bg-emerald-600 hover:text-white hover:px-8  
@@ -109,6 +98,7 @@ const handleSubmit = () => {
                                             </button>
                                            
                                         </div>
+                                         <Spinner class="spiner" v-if="storeNeighborhood.spinnerShowModal" /> 
                                     </form>
                                 </div>
                         </div>

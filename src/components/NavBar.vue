@@ -24,6 +24,8 @@ onMounted(() => {
     <div class="h-40">
         <header class="h-40 py-4 px-2 lg:mx-4 xl:mx-12">
             <nav class="z-10 flex items-center flex-wrap">
+
+                <!-- menu para movil  -->
                 <div class="block lg:hidden">
                     <button @click="toggleNavbar" class="menu" :class="{ 'menu-active': !isNavbarHidden }">
                         <div class="bar1"></div>
@@ -44,17 +46,7 @@ onMounted(() => {
                 </div>
                 <div :class="{ 'hidden lg:flex': isNavbarHidden }" class="w-full flex-grow lg:flex items-center lg:w-auto">
                     <div class="text-sm lg:flex-grow mt-2 animated jackinthebox xl:mx-8">
-                        <div v-if="isNavbarHidden">
-                            <button class="mt-4 mr-6 px-2 py-2 bg-green-300 rounded-2xl font-extrabold"
-                                @click="storeButtom.buttonChange">{{ storeButtom.reactiveFavBotton }}</button>
-                            <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'contact' }">{{
-                                storeButtom.buttonLeng ? 'Contacto' : 'Contact' }}</router-link>
-                            <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'households' }">{{
-                                storeButtom.buttonLeng ? 'Viviendas' : 'dwelling' }}</router-link>
-                            <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'ask' }">{{
-                                storeButtom.buttonLeng ? 'Preguntas' : 'Question' }}</router-link>
-                        </div>
-                        <div v-else
+                        <div v-if="!isNavbarHidden"
                         class="flex flex-col">
                             <router-link class="mt-3 text-lg text-green-500 font-extrabold" :to="{ name: 'contact' }">{{
                                 storeButtom.buttonLeng ? 'Contacto' : 'Contact' }}</router-link>
@@ -65,10 +57,22 @@ onMounted(() => {
                             <button class="mt-4 w-12 h-6 ml-3 bg-green-300 rounded-2xl font-extrabold"
                                 @click="storeButtom.buttonChange">{{ storeButtom.reactiveFavBotton }}</button>
                         </div>
+                        <!-- menu para pc -->
+                         <div v-else>
+                                <button class="mt-4 mr-6 px-2 py-2 bg-green-300 rounded-2xl font-extrabold"
+                                    @click="storeButtom.buttonChange">{{ storeButtom.reactiveFavBotton }}</button>
+                                <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'contact' }">{{
+                                    storeButtom.buttonLeng ? 'Contacto' : 'Contact' }}</router-link>
+                                <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'households' }">{{
+                                    storeButtom.buttonLeng ? 'Viviendas' : 'dwelling' }}</router-link>
+                                <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'ask' }">{{
+                                    storeButtom.buttonLeng ? 'Preguntas' : 'Question' }}</router-link>
+                            </div>
                     </div>
                 </div>
             </nav>
         </header>
+        <!-- evento para cerrar el menu de movil al hacer el evento click se cierra menu y vuelve al estado normal -->
         <div v-if="!isNavbarHidden" @click="closeMenuOnOutsideClick" class="backdrop"></div>
     </div>
 </template>

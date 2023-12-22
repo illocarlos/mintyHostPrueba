@@ -34,7 +34,7 @@ const handleSubmit = async () => {
     <div class="mx-auto container px-5 py-16">
          <button
          @click="useModal.clickShowModal"
-         class=" font-extrabold text-2xl fixed right-0 bg-emerald-400 px-6 py-2 rounded-l-xl hover:px-12 transition-all ">
+         class=" font-extrabold text-2xl fixed right-0 bg-emerald-400 px-6 py-2 rounded-l-xl hover:px-12 transition-all z-20 ">
                        +
             </button>
         <div class="mt-20 flex flex-col justify-between  md:flex-row">
