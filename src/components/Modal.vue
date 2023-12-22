@@ -2,14 +2,20 @@
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { useStoreModal } from '@/stores/modal'
 import { useStoreNeighborhood } from '../stores/neighborhood.js'
+import { useStoreButtom } from '@/stores/traduction.js'
 
+
+const storeButtom = useStoreButtom()
 const storeNeighborhood = useStoreNeighborhood();
 const modal = useStoreModal()
 
 
 
 const handleSubmit = () => {
-   storeNeighborhood.fetchPisos(storeNeighborhood.modalFilter)
+    
+    storeNeighborhood.fetchPisos(storeNeighborhood.modalFilter)
+ 
+  
 };
 </script>
 
@@ -28,76 +34,81 @@ const handleSubmit = () => {
                         leave-from="opacity-100 translate-y-0 sm:scale-100"
                         leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                         <DialogPanel
-                            class="relative transform overflow-hidden rounded-lg  bg-emerald-500  px-30 pt-5 pb-4 text-left shadow-xl  px-8 mb-20 
-                            transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6">
+                            class="relative transform overflow-hidden rounded-lg  bg-emerald-500  pt-5 pb-4 text-left shadow-xl  px-4 mb-20 
+                            transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6 sm:px-8">
                             <div>
                                 <div class="mt-3">
                                     <DialogTitle as="h2" class="uppercase text-center font-extrabold text-4xl text-black">
-                                   buscador
+                                  {{storeButtom.buttonLeng ?'buscador':'filter' }} 
                                     </DialogTitle>
-                                    <form
-                                    @submit.prevent="handleSubmit"
-                                    >
+
+                                    <form @submit.prevent="handleSubmit">
 
 
-
-
-                                        <div class="mt-3 flex flex-col justify-center items-center">
-                                            <label for="bedrooms" class="block text-center text-white">Habitaciones</label>
-                                            <input type="number" id="bedrooms" v-model="storeNeighborhood.modalFilter.bedrooms "
-                                                pattern="[0-9]*"  class="w-1/2 text-center p-2 mt-1 rounded-lg" />
-                                        </div>
                                       <div class="mt-3 flex flex-col justify-center items-center">
-        <label for="guests" class="block text-center text-white">Numero ocupante</label>
-        <input pattern="[0-9]*" type="number" id="guests" v-model="storeNeighborhood.modalFilter.guests"
-            class="w-1/2 text-center p-2 mt-1 rounded-lg" />
+              <label for="bedrooms" class="block text-center text-white">
+                {{ storeButtom.buttonLeng ? 'Habitaciones' : 'Bedrooms' }}
+               </label>
+              <span>{{ storeNeighborhood.modalFilter.bedrooms }}</span> 
+            <input type="range" id="bedrooms"
+                v-model="storeNeighborhood.modalFilter.bedrooms" min="0" max="10" step="1" 
+                class="w-2/2 p-2 text-center mt-1 rounded-lg md:w-1/2 " />
+                   </div>
+                                 
+                   
+                   
+                   
+                   <div class="mt-3 flex flex-col justify-center items-center">
+                                   <label for="guests" class="block text-center text-white">
+                                    {{ storeButtom.buttonLeng ? ' Numero huespedes' : 'Number of guests' }}</label>
 
-    </div>
+                                    <span>{{ storeNeighborhood.modalFilter.guests }}</span> 
+                          <input min="0" max="30" step="1"  type="range" id="guests" v-model="storeNeighborhood.modalFilter.guests"
+                                       class="w-2/2 text-center p-2 mt-1 rounded-lg md:w-1/2 " />
+                                       </div>
+
+
+
+
                                          <div class="mt-3 flex flex-col justify-center items-center">
-                                                <label for="min_price" class="block text-center text-white">Precio minimo</label>
-                                                <input pattern="[0-9]*" type="number" id="min_price" v-model="storeNeighborhood.modalFilter.min_price"
-                                                    class="w-1/2 p-2 text-center mt-1 rounded-lg" />
+
+                                                <label for="min_price" class="block text-center text-white">  
+                                                    {{ storeButtom.buttonLeng ? 'Precio min' : 'Price min' }}</label>
+                                                     <span>{{ storeNeighborhood.modalFilter.min_price }}</span> 
+                                                <input min="0" max="3000" step="100"  type="range" 
+                                                 id="min_price" v-model="storeNeighborhood.modalFilter.min_price"
+                                                    class="w-2/2 p-2 text-center mt-1 rounded-lg md:w-1/2 " />
                                             </div>
                                              <div class="mt-3 flex flex-col justify-center items-center">
-                                                <label for="max_price" class="block text-center text-white">Precio maximo</label>
-                                                <input  pattern="[0-9]*" type="number" id="max_price" v-model="storeNeighborhood.modalFilter.max_price"
-                                                    class="w-1/2 p-2 mt-1 text-center rounded-lg" />
+
+                                                <label for="max_price" class="block text-center text-white">
+                                                      {{ storeButtom.buttonLeng ? 'Precio max' : 'Precio max' }}
+                                                </label>
+                                                 <span>{{ storeNeighborhood.modalFilter.max_price }}</span> 
+                                                <input  min="0" max="3000" step="100"  type="range" id="max_price"
+                                                v-model="storeNeighborhood.modalFilter.max_price"
+                                                    class="w-2/2 p-2 mt-1 text-center rounded-lg md:w-1/2 " />
                                             </div>
-<!-- <div class=" flex flex-row justify-between lg:justify-center ">
-      <div class="mt-3  flex flex-col justify-center items-center">
-                <label for="heating" class="block text-center text-white">Wifi</label>
-                <input type="checkbox" id="heating" v-model="storeNeighborhood.modalFilter.heating" class="customCheck" />
-            </div>
-            <div class="mt-3 ml-5 flex flex-col justify-center items-center">
-                    <label for="wifi" class="block text-center text-white">Comedor</label>
-                    <input type="checkbox" id="wifi" v-model="storeNeighborhood.modalFilter.wifi" class="customCheck" />
-                </div>
-                <div class="mt-3 ml-5   flex flex-col justify-center items-center">
-                    <label for="AC" class=" block text-center text-white">Aseo</label>
-                    <input type="checkbox" id="AC" v-model="storeNeighborhood.modalFilter.AC" class="customCheck" />
-                </div>
-                </div> -->
+
 
                                         <div class="mt-5 flex justify-center gap-4">
                                              <button @click="modal.clickShowModal()"
-                                                class="bg-red-700 text-white px-6 py-2 font-extrabold uppercase rounded-lg
+                                                class="bg-red-700 text-white px-3 py-2 font-extrabold uppercase rounded-lg 
+                                                     sm:px-8  lg:px-8
                                                  hover:bg-red-400 hover:text-black hover:px-8 
                                                  transition-all ease-linear active:animate-ping focus:outline-none">
-                                                Cerrar
+                                             {{ storeButtom.buttonLeng ? 'Cerrar' : 'Close' }}
                                             </button>
                                             <button 
                                              @click="modal.clickShowModal()"
                                             type="submit"
-                                                class="  bg-white text-black px-6 py-2 font-extrabold uppercase rounded-lg
-                                                 hover:bg-emerald-600 hover:text-white hover:px-8  
+                                                class="  bg-white text-black px-3 py-2 font-extrabold uppercase rounded-lg
+                                                  sm:px-8 lg:px-8 hover:bg-emerald-600 hover:text-white hover:px-8  
                                                   transition-all ease-linear active:animate-ping focus:outline-none">
-                                                Enviar
+                                                    {{ storeButtom.buttonLeng ? 'Enviar' : 'Send' }}
                                             </button>
                                            
                                         </div>
-
-
-
                                     </form>
                                 </div>
                         </div>

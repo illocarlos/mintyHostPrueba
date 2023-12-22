@@ -5,15 +5,17 @@ import { useStoreModal } from './modal.js'
 export const useStoreFilter = defineStore('filter', () => {
     const modal = useStoreModal()
     const neighborhoods = ref([])
+    const buttonLeng = ref(false)
+
+
+
+
 
     const neighborhood = reactive({
         id: '',
         name: '',
 
     })
-
-
-
 
     function showModal(params) {
         modal.clickShowModal()
@@ -31,6 +33,8 @@ export const useStoreFilter = defineStore('filter', () => {
 
     return {
         neighborhood,
-        neighborhoods
+        neighborhoods,
+        neighborhood
+
     }
 })

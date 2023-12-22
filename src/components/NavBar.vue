@@ -1,89 +1,120 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
-import { computed, ref } from 'vue';
+import { useStoreButtom } from '@/stores/traduction.js';
+
+const storeButtom = useStoreButtom();
 const isNavbarHidden = ref(true);
-const buttonLeng = ref(false)
 
 const toggleNavbar = () => {
-
     isNavbarHidden.value = !isNavbarHidden.value;
-    setTimeout(() => {
-        isNavbarHidden.value = true
-    },10000)
-
 };
 
-const buttonChange = () => {
-    buttonLeng.value = !buttonLeng.value;
-    return buttonLeng.value;
+const closeMenuOnOutsideClick = (event) => {
+    if (!event.target.closest('.menu') && isNavbarHidden.value === false) {
+        isNavbarHidden.value = true;
+    }
 };
 
-const reactiveFavBotton = computed(() => {
-    return buttonLeng.value ? 'ES' : 'EN';
+onMounted(() => {
+    document.addEventListener('click', closeMenuOnOutsideClick);
 });
 </script>
 <template>
-    <header class=" py-4 px-2 lg:mx-4 xl:mx-12">
-        <nav class=" z-10 flex items-center  flex-wrap ">
-            
-            
-            <div class="block lg:hidden ">
-                <div class="flex flex-row">
-           
-                <button
-                        class="navbar-burger flex items-center px-3 py-2 border rounded text-white border-white hover:text-white hover:border-white"
-                        @click="toggleNavbar">
-                        <svg class="fill-current h-6 w-6 text-gray-700" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <title>Menu</title>
-                            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-                        </svg>
+    <div class="h-40">
+        <header class="h-40 py-4 px-2 lg:mx-4 xl:mx-12">
+            <nav class="z-10 flex items-center flex-wrap">
+                <div class="block lg:hidden">
+                    <button @click="toggleNavbar" class="menu" :class="{ 'menu-active': !isNavbarHidden }">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
                     </button>
+                    <div class="flex flex-row"></div>
+                    <div v-if="!isNavbarHidden" class="absolute right-0 top-5">
+                        <router-link :to="{ name: 'contact' }" class="w-40 flex flex-row justify-center mx-5 p-1">
+                            <img src="../assets/logo.svg" alt="logo minty">
+                        </router-link>
+                    </div>
                 </div>
-                <div
-                 v-if="!isNavbarHidden" 
-                class="absolute right-0 top-5 ">
-                <RouterLink 
-                :to="{ name: 'contact' }"
-             class=" w-40 flex flex-row justify-center  mx-5  p-1 ">
-                                                    <img src="../assets/logo.svg" alt="logo minty">
-                                                </RouterLink>
-            </div>
-        </div>
-           <div
-            v-if="isNavbarHidden" 
-           class="absolute right-0 top-5 ">
-                    <RouterLink 
-                    :to="{ name: 'contact' }"
-                 class=" w-40 flex flex-row justify-center  mx-5  p-1 ">
-                                                        <img src="../assets/logo.svg" alt="logo minty">
-                                                    </RouterLink>
+                <div v-if="isNavbarHidden" class="absolute right-0 top-5">
+                    <router-link :to="{ name: 'contact' }" class="w-40 flex flex-row justify-center mx-5 p-1">
+                        <img src="../assets/logo.svg" alt="logo minty">
+                    </router-link>
                 </div>
-            <div :class="{ 'hidden lg:flex': isNavbarHidden }" class="w-full flex-grow lg:flex items-center lg:w-auto">
+                <div :class="{ 'hidden lg:flex': isNavbarHidden }" class="w-full flex-grow lg:flex items-center lg:w-auto">
                     <div class="text-sm lg:flex-grow mt-2 animated jackinthebox xl:mx-8">
-                        <div
-                        v-if="isNavbarHidden" >
-                        <button
-                      class="mt-4 mr-6 px-2 py-2 bg-green-300 rounded-2xl font-extrabold "
-                      @click="buttonChange">{{ reactiveFavBotton }}</button>
-                    <RouterLink class=" mr-6 text-green-500 font-extrabold"  :to="{ name: 'contact' }">{{ buttonLeng ?'Contacto':'Contact' }}</RouterLink>    
-                    <RouterLink class="mr-6 text-green-500 font-extrabold"   :to="{ name: 'households' }">{{ buttonLeng ? 'Viviendas' : 'dwelling' }}</RouterLink>
-                    <RouterLink  class= "mr-6 text-green-500 font-extrabold"  :to="{ name: 'ask' }">{{ buttonLeng ? 'Preguntas' : 'Question' }}</RouterLink>
-                    </div>
-                    <div
-                    class="flex flex-col"
-                    v-else>
-                   <RouterLink class=" mt-3 text-green-500 font-extrabold"    :to="{ name: 'contact' }">{{ buttonLeng ? 'Contacto' : 'Contact' }}</RouterLink> 
-                     
-                        <RouterLink  class="mt-3 text-green-500 font-extrabold"  :to="{ name: 'households' }">{{ buttonLeng ? 'Viviendas' : 'dwelling' }}</RouterLink> 
-                           
-                        <RouterLink  class=" mt-3 text-green-500 font-extrabold"   :to="{ name: 'ask' }">{{ buttonLeng ? 'Preguntas' : 'question' }}</RouterLink>
-                          <button
-                              class="mt-4 w-14 h-6  bg-green-300 rounded-2xl font-extrabold"
-                              @click="buttonChange">{{ reactiveFavBotton }}</button>  
+                        <div v-if="isNavbarHidden">
+                            <button class="mt-4 mr-6 px-2 py-2 bg-green-300 rounded-2xl font-extrabold"
+                                @click="storeButtom.buttonChange">{{ storeButtom.reactiveFavBotton }}</button>
+                            <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'contact' }">{{
+                                storeButtom.buttonLeng ? 'Contacto' : 'Contact' }}</router-link>
+                            <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'households' }">{{
+                                storeButtom.buttonLeng ? 'Viviendas' : 'dwelling' }}</router-link>
+                            <router-link class="mr-6 text-xl text-green-500 font-extrabold" :to="{ name: 'ask' }">{{
+                                storeButtom.buttonLeng ? 'Preguntas' : 'Question' }}</router-link>
+                        </div>
+                        <div v-else
+                        class="flex flex-col">
+                            <router-link class="mt-3 text-lg text-green-500 font-extrabold" :to="{ name: 'contact' }">{{
+                                storeButtom.buttonLeng ? 'Contacto' : 'Contact' }}</router-link>
+                            <router-link class="mt-3 text-lg text-green-500 font-extrabold" :to="{ name: 'households' }">{{
+                                storeButtom.buttonLeng ? 'Viviendas' : 'dwelling' }}</router-link>
+                            <router-link class="mt-3 text-lg text-green-500 font-extrabold" :to="{ name: 'ask' }">{{
+                                storeButtom.buttonLeng ? 'Preguntas' : 'question' }}</router-link>
+                            <button class="mt-4 w-12 h-6 ml-3 bg-green-300 rounded-2xl font-extrabold"
+                                @click="storeButtom.buttonChange">{{ storeButtom.reactiveFavBotton }}</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </header> 
+            </nav>
+        </header>
+        <div v-if="!isNavbarHidden" @click="closeMenuOnOutsideClick" class="backdrop"></div>
+    </div>
 </template>
+
+<style scoped>
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+    display: none;
+}
+
+.menu {
+    display: flex;
+    flex-flow: column;
+    width: 2.5rem;
+    height: 2rem;
+    background: transparent;
+    gap: 0.65rem;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+    background: black;
+    height: 2px;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 1s;
+    transform-origin: center;
+}
+
+.menu-active .bar1 {
+    transform: translateY(12px) rotate(45deg);
+}
+
+.menu-active .bar2 {
+    opacity: 0;
+}
+
+.menu-active .bar3 {
+    transform: translateY(-12px) rotate(-45deg);
+}
+</style>
+

@@ -14,14 +14,22 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
 
     })
 
-    const fetchPisos = async (params) => {
+    function $reset() {
+        modalFilter.bedrooms = "";
+        modalFilter.guests = "";
+        modalFilter.min_price = "";
+        modalFilter.max_price = "";
+    }
+
+
+    async function fetchPisos(params) {
         try {
             const { data } = await ApiService.postAllFloor(params);
 
             neighborhoods.value = data;
             allNeighborhoods.value = data;
             filterneighborhoods.value = data;
-
+            $reset()
         } catch (error) {
         }
 
@@ -32,11 +40,9 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
             return neighborhoods.value = allNeighborhoods.value;
         }
         const filteredNeighborhoods = allNeighborhoods.value.filter(elm => elm.barrio.name === floorFilter);
-        console.log(filteredNeighborhoods)
         neighborhoods.value = filteredNeighborhoods;
 
     }
-
 
     onMounted(async () => {
         await fetchPisos();
@@ -48,5 +54,7 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
         fetchPisos,
         filterNeighborhoodFloor,
         spinnerShow,
+
+
     }
 })
