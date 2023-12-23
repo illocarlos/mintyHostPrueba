@@ -34,8 +34,9 @@ const handleSubmit = async () => {
     <div class="mx-auto container px-5 py-16">
          <button
          @click="useModal.clickShowModal"
-         class=" font-extrabold text-2xl fixed right-0 bg-emerald-400 px-6 py-2 rounded-l-xl hover:px-12 transition-all z-20 ">
-                       +
+         class=" font-extrabold text-xl fixed right-0 bg-emerald-400 px-6 py-2 rounded-l-xl 
+         hover:px-12 transition-all z-20 lg:px-14 lg:py-3  lg:hover:px-20 ">
+                 +
             </button>
         <div class="mt-20 flex flex-col justify-between  md:flex-row">
             <article class=" text-lg md:text-xl lg:text-2xl 2xl:text-3xl" >
@@ -47,11 +48,11 @@ const handleSubmit = async () => {
              'Nos encargamos de gestionar íntegramente tu alquiler turístico' 
             : 'We take care of fully managing your tourist rental' }}</p>
             </article>
-            <form class=" bg-emerald-600 my-20 p-8 rounded-lg shadow-2xl
-             md:w-3/5 md:my-26   2xl:w-2/5">
+            <form class="  bg-emerald-600 my-20 p-4 rounded-lg shadow-2xl
+             md:w-5/12 md:my-26   2xl:w-2/5">
                 <select @change="handleSubmit" class="text-xl text-center p-3 w-full rounded-lg focus:outline-none"
                 name="barrio" id="barrio" v-model="NeighborhoodFilter">
-                <option class=" text-center text-slate-500" value="">
+                <option class=" text-center text-slate-800" value="">
                     {{ storeButtom.buttonLeng ? 
                     ' selecciona un barrio' 
                     : 'select a neighborhood' }}</option>

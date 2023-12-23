@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useStoreNeighborhood } from '@/stores/neighborhood';
 import { formateEuro } from '../helpers/index'
+
 const storeNeighborhood = useStoreNeighborhood();
 const currentIndexes = ref([]);
 
@@ -35,7 +36,7 @@ onUnmounted(() => {
 <template>
     <div >
        
-        <div class=" relative border hover:scale-105 transition-transform  shadow-xl md:mx-5 md:mt-3 md:rounded-t-xl" v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
+        <div class=" relative border hover:scale-110 transition-trasnform  shadow-xl md:mx-5 md:mt-3 md:rounded-t-xl" v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
             <!-- Carrusel de imágenes -->
             <div class="carousel relative w-full md:rounded-lg">
                 <div v-for="(image, imgIndex) in floor.pic" :key="imgIndex" :class="{
@@ -45,7 +46,7 @@ onUnmounted(() => {
                     'opacity-100': imgIndex === currentIndexes[index],
                     '-z-10': imgIndex === currentIndexes[index],
                     'z-0': imgIndex !== currentIndexes[index],
-                }" class="w-full absolute top-0 left-0 transition-opacity duration-500">
+                }" class="w-full absolute top-0 left-0 transition-transform duration-800">
                     <img :src="image" :alt="'Floor Image ' + imgIndex" class="w-full" />
                 </div>
             </div>

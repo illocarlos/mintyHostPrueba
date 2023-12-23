@@ -4,12 +4,12 @@ import ApiService from '@/service/ApiService.js'
 import { useStoreModal } from '@/stores/modal'
 
 export const useStoreNeighborhood = defineStore('neighborhood', () => {
-    const modal = useStoreModal()
+    const useModal = useStoreModal()
     const spinnerShow = ref(false)
     const spinnerShowModal = ref(false)
     const neighborhoods = ref([]);
-    const filterneighborhoods = ref([])
     const allNeighborhoods = ref([]);
+
     const modalFilter = reactive({
         bedrooms: "",
         guests: "",
@@ -28,22 +28,23 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
 
     async function fetchPisos(params) {
 
+
+
         try {
 
             const { data } = await ApiService.postAllFloor(params);
 
-
-            spinnerShowModal.value = false
             neighborhoods.value = data;
             allNeighborhoods.value = data;
-            console.log(allNeighborhoods.value)
             $reset()
         }
         catch (error) {
         }
+
     };
 
     function filterNeighborhoodFloor(floorFilter) {
+
         if (!floorFilter) {
             return neighborhoods.value = allNeighborhoods.value;
         }
@@ -62,7 +63,8 @@ export const useStoreNeighborhood = defineStore('neighborhood', () => {
         fetchPisos,
         filterNeighborhoodFloor,
         spinnerShow,
-        spinnerShowModal
+        spinnerShowModal,
+        $reset
 
 
     }
