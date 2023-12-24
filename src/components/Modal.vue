@@ -53,7 +53,7 @@ const handleSubmit = () => {
                                     {{ storeButtom.buttonLeng ? ' Numero huespedes' : 'Number of guests' }}</label>
 
                                     <span>{{ storeNeighborhood.modalFilter.guests }}</span> 
-                          <input min="0" max="30" step="1"  type="range" id="guests" v-model="storeNeighborhood.modalFilter.guests"
+                          <input min="0" max="12" step="1"  type="range" id="guests" v-model="storeNeighborhood.modalFilter.guests"
                                        class="w-2/2 text-center p-2 mt-1 rounded-lg md:w-1/2 " />
                                        </div>
                                          <div class="mt-3 flex flex-col justify-center items-center">
@@ -61,7 +61,7 @@ const handleSubmit = () => {
                                                 <label for="min_price" class="block text-center text-black text-xl">  
                                                     {{ storeButtom.buttonLeng ? 'Precio min' : 'Price min' }}</label>
                                                      <span>{{ storeNeighborhood.modalFilter.min_price }}</span> 
-                                                <input min="0" max="3000" step="100"  type="range" 
+                                                <input min="0" max="2000" step="100"  type="range" 
                                                  id="min_price" v-model="storeNeighborhood.modalFilter.min_price"
                                                     class="w-2/2 p-2 text-center mt-1 rounded-lg md:w-1/2 " />
                                             </div>
@@ -71,7 +71,7 @@ const handleSubmit = () => {
                                                       {{ storeButtom.buttonLeng ? 'Precio max' : 'Price max' }}
                                                 </label>
                                                  <span>{{ storeNeighborhood.modalFilter.max_price }}</span> 
-                                                <input  min="0" max="3000" step="100"  type="range" id="max_price"
+                                                <input  min="0" max="4000" step="100"  type="range" id="max_price"
                                                 v-model="storeNeighborhood.modalFilter.max_price"
                                                     class="w-2/2 p-2 mt-1 text-center rounded-lg md:w-1/2 " />
                                             </div>                                            
