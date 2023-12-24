@@ -15,6 +15,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
+    <!-- paquete creacion modal -->
     <TransitionRoot as="template" :show="useModal.modal">
         <Dialog as="div" class="relative z-30 " @close="useModal.clickShowModal">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100"
@@ -36,10 +37,8 @@ const handleSubmit = () => {
                                     <DialogTitle as="h2" class="uppercase text-center font-extrabold text-4xl text-black">
                                   {{storeButtom.buttonLeng ?'buscador':'filter' }} 
                                     </DialogTitle>
-
-                                    <form  >
-
-
+                                    <!-- formulario/modal -->
+                                    <form>
                                       <div class="mt-3 flex flex-col  items-center">
               <label for="bedrooms" class="block text-center text-black text-xl">
                 {{ storeButtom.buttonLeng ? 'Habitaciones' : 'Bedrooms' }}
@@ -69,21 +68,15 @@ const handleSubmit = () => {
                                              <div class="mt-3 flex flex-col justify-center items-center">
 
                                                 <label for="max_price" class="block text-center text-black text-xl">
-                                                      {{ storeButtom.buttonLeng ? 'Precio max' : 'Precio max' }}
+                                                      {{ storeButtom.buttonLeng ? 'Precio max' : 'Price max' }}
                                                 </label>
                                                  <span>{{ storeNeighborhood.modalFilter.max_price }}</span> 
                                                 <input  min="0" max="3000" step="100"  type="range" id="max_price"
                                                 v-model="storeNeighborhood.modalFilter.max_price"
                                                     class="w-2/2 p-2 mt-1 text-center rounded-lg md:w-1/2 " />
-                                            </div>
-                                            
-                                            
-                                            
-                                            
+                                            </div>                                            
                                         </form>
                                         <div class="flex flex-row justify-center mt-6 xl:mt-20">
-
-
                                           <button
                 @click="useModal.clickShowModal()"
                 class="bg-red-700 text-white px-6 py-3 mr-7 font-extrabold uppercase rounded-lg 
@@ -109,10 +102,3 @@ const handleSubmit = () => {
     </Dialog>
 </TransitionRoot>
 </template>
-<style scoped>
-.customCheck{
-    margin-top:0.25rem;
-    width:2rem ;
-    height:1.5rem ;
-}
-</style>

@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 <template>
     <div class="h-40">
-        <header class="h-40 py-4 px-2 lg:mx-4 xl:mx-12">
+        <div class="h-40 py-4 px-2 lg:mx-4 xl:mx-12">
             <nav class="z-10 flex items-center flex-wrap">
 
                 <!-- menu para movil  -->
@@ -71,7 +71,7 @@ onMounted(() => {
                     </div>
                 </div>
             </nav>
-        </header>
+        </div>
         <!-- evento para cerrar el menu de movil al hacer el evento click se cierra menu y vuelve al estado normal -->
         <div v-if="!isNavbarHidden" @click="closeMenuOnOutsideClick" class="backdrop"></div>
     </div>

@@ -6,7 +6,6 @@ import { useStoreNeighborhood } from '../stores/neighborhood.js'
 import { useStoreModal } from '../stores/modal'
 import { useStoreButtom } from '@/stores/traduction.js'
 
-
 const storeButtom = useStoreButtom()
 const useModal= useStoreModal()
 const storeFilter = useStoreFilter();
@@ -30,6 +29,7 @@ const handleSubmit = async () => {
     }
 }
 </script>
+
 <template>
     <div class="mx-auto container px-5 py-16">
          <button
@@ -48,6 +48,7 @@ const handleSubmit = async () => {
              'Nos encargamos de gestionar íntegramente tu alquiler turístico' 
             : 'We take care of fully managing your tourist rental' }}</p>
             </article>
+
             <form class="  bg-emerald-600 my-20 p-4 rounded-lg shadow-2xl
              md:w-5/12 md:my-26   2xl:w-2/5">
                 <select @change="handleSubmit" class="text-xl text-center p-3 w-full rounded-lg focus:outline-none"

@@ -2,7 +2,9 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useStoreNeighborhood } from '@/stores/neighborhood';
 import { formateEuro } from '../helpers/index'
+import { useStoreButtom } from '@/stores/traduction.js'
 
+const storeButtom = useStoreButtom()
 const storeNeighborhood = useStoreNeighborhood();
 const currentIndexes = ref([]);
 
@@ -36,7 +38,7 @@ onUnmounted(() => {
 <template>
     <div >
        
-        <div class=" relative border hover:scale-110 transition-trasnform  shadow-xl md:mx-5 md:mt-3 md:rounded-t-xl" v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
+        <div class=" relative border hover:scale-110  transition-all  shadow-xl md:mx-5 md:mt-3 md:rounded-t-xl" v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
             <!-- Carrusel de imágenes -->
             <div class="carousel relative w-full md:rounded-lg">
                 <div v-for="(image, imgIndex) in floor.pic" :key="imgIndex" :class="{
@@ -53,11 +55,20 @@ onUnmounted(() => {
       <!-- detalles piso -->
             <div class="px-7 py-8">
                 <p class="text-green-600 font-extrabold text-center">{{ floor.address }}</p>
-                <article class=" truncate font-extrabold text-center">{{ floor.apartment_title }}</article>
-                <p class="text-center uppercasen text-green-600 "> {{ floor.town }}</p>
-                <p class="font-extrabold text-center">{{ formateEuro( floor.monthly_price) }}</p>
-                <p class="text-center">{{ floor.accommodates_max }} personas</p>
-                <p class="text-center">{{ floor.bedrooms }} habitaciones</p>
+                <article class=" truncate text-center font-extrabold">{{ floor.apartment_title }}</article>
+                <p class="text-center uppercasen font-extrabold text-green-600 "> {{ floor.town }}</p>
+                <div>
+                         <p class="text-center">{{ storeButtom.buttonLeng ? 'Personas' : 'People' }}</p>
+                    <p class="text-center text-green-600  font-extrabold ">{{ floor.accommodates_max }}</p>
+                </div>
+                <div>
+                    <p class="text-center"> {{ storeButtom.buttonLeng ? 'Habitaciones' : 'Bedrooms' }}</p>
+                    <p class="text-center text-green-600  font-extrabold">{{ floor.bedrooms }}</p>
+                </div>
+                   <div>
+                        <p class="font-extrabold text-center">{{ formateEuro(floor.monthly_price) }}/
+                            {{ storeButtom.buttonLeng ? 'Mes' : 'Month' }}</p>
+                        </div>
             </div>
         </div>
     </div>
