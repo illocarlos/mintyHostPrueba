@@ -38,7 +38,7 @@ onUnmounted(() => {
 <template>
     <div >
        
-        <div class=" relative border hover:scale-110  transition-all  shadow-xl md:mx-5 md:mt-3 md:rounded-t-xl" v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
+        <div class=" relative border hover:scale-110  transition-all  shadow-xl md:mx-5 md:mt-9 md:rounded-t-xl" v-for="(floor, index) in storeNeighborhood.neighborhoods" :key="floor.id">
             <!-- Carrusel de imágenes -->
             <div class="carousel relative w-full md:rounded-lg">
                 <div v-for="(image, imgIndex) in floor.pic" :key="imgIndex" :class="{

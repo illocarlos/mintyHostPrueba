@@ -26,7 +26,7 @@ const storeNeighborhood = useStoreNeighborhood()
      {{storeButtom.buttonLeng?'Ninguna vivienda disponible por favor use el filtro de barrio o el boton de filtro'
      :'No housing available please use the neighborhood filter or the filter button'}}</p>
      <!-- plista de pisos -->
-        <div v-else class="gap-10 mt-3 ">
+        <div v-else class="gap-10 mt-3  ">
        <FloorList class=" grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4  "/>
         </div>
       <RouterView/>

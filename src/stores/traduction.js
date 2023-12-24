@@ -10,7 +10,7 @@ export const useStoreButtom = defineStore('buttom', () => {
     };
 
     const reactiveFavBotton = computed(() => {
-        return buttonLeng.value ? 'ES' : 'EN';
+        return buttonLeng.value ? 'EN' : 'ES';
     });
 
     return {
